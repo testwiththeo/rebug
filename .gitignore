@@ -1,0 +1,67 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Extension build
+extension/.output/
+extension/.wxt/
+extension/stats.html
+extension/stats-*.json
+extension/web-ext.config.ts
+
+# Viewer build
+viewer/.next/
+viewer/out/
+viewer/*.tsbuildinfo
+viewer/next-env.d.ts
+
+# Backend Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# Environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+*.zip
+*.crx
+*.pkg
+
+# Internal
+prompts/
+.codex/
+CLAUD.md
+RTK.md
+
+# Internal reports (AI-generated, not part of source)
+AUTH_IMPLEMENTATION_COMPLETE.md
+CRITICAL_FIXES_SUMMARY.md
+IMPLEMENTATION_PLAN.md
+SECURITY_FIXES_REPORT.md
+STEVE_REVIEW_STATUS.md
