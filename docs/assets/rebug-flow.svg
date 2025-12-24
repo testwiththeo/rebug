@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="440" viewBox="0 0 1120 440" role="img" aria-labelledby="title desc">
+  <title id="title">Rebug full flow</title>
+  <desc id="desc">Record, replay, analyze, file, notify, and link impact.</desc>
+  <rect width="1120" height="440" fill="#f8fafc"/>
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+    <text x="56" y="58" fill="#0f172a" font-size="30" font-weight="700">Rebug full flow</text>
+    <text x="56" y="86" fill="#64748b" font-size="15">From browser evidence to Jira, Slack, and production impact proof.</text>
+
+    <g transform="translate(56 134)">
+      <rect width="150" height="112" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="20" y="38" fill="#0f172a" font-size="17" font-weight="700">Record</text>
+      <text x="20" y="66" fill="#64748b" font-size="12">DOM, network,</text>
+      <text x="20" y="84" fill="#64748b" font-size="12">console, clicks</text>
+    </g>
+
+    <path d="M220 190H270" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M270 190l-10-6v12z" fill="#94a3b8"/>
+
+    <g transform="translate(286 134)">
+      <rect width="150" height="112" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="20" y="38" fill="#0f172a" font-size="17" font-weight="700">Replay</text>
+      <text x="20" y="66" fill="#64748b" font-size="12">Timeline plus</text>
+      <text x="20" y="84" fill="#64748b" font-size="12">event evidence</text>
+    </g>
+
+    <path d="M450 190H500" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M500 190l-10-6v12z" fill="#94a3b8"/>
+
+    <g transform="translate(516 134)">
+      <rect width="150" height="112" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="20" y="38" fill="#0f172a" font-size="17" font-weight="700">Analyze</text>
+      <text x="20" y="66" fill="#64748b" font-size="12">Steps and root</text>
+      <text x="20" y="84" fill="#64748b" font-size="12">cause chain</text>
+    </g>
+
+    <path d="M680 190H730" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M730 190l-10-6v12z" fill="#94a3b8"/>
+
+    <g transform="translate(746 134)">
+      <rect width="150" height="112" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="20" y="38" fill="#0f172a" font-size="17" font-weight="700">File</text>
+      <text x="20" y="66" fill="#64748b" font-size="12">Jira ticket with</text>
+      <text x="20" y="84" fill="#64748b" font-size="12">replay link</text>
+    </g>
+
+    <path d="M910 190H960" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M960 190l-10-6v12z" fill="#94a3b8"/>
+
+    <g transform="translate(976 134)">
+      <rect width="88" height="112" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="18" y="38" fill="#0f172a" font-size="17" font-weight="700">Slack</text>
+      <text x="18" y="66" fill="#64748b" font-size="12">Notify</text>
+      <text x="18" y="84" fill="#64748b" font-size="12">team</text>
+    </g>
+
+    <g transform="translate(286 302)">
+      <rect width="548" height="82" rx="8" fill="#0f172a"/>
+      <text x="24" y="34" fill="#ffffff" font-size="18" font-weight="700">Impact Linking</text>
+      <text x="24" y="58" fill="#cbd5e1" font-size="13">Closed as unable to reproduce + matching production incident = evidence posted back to Slack.</text>
+    </g>
+    <path d="M821 246v34c0 15-12 22-28 22" stroke="#0f172a" stroke-width="2" fill="none"/>
+    <path d="M793 302l9-7v14z" fill="#0f172a"/>
+  </g>
+</svg>
