@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { getImpactLinks } from '@/lib/api';
 import type { ImpactLinkResponse } from '@/lib/types';
 
@@ -50,12 +51,12 @@ export function ImpactDashboard() {
       </div>
 
       {error ? (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-          {error}
+        <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+          Cannot load impact links. Check that the backend is running.
         </div>
       ) : null}
 
-      <div className="overflow-hidden rounded-md border bg-white">
+      <div className="overflow-hidden rounded-md border bg-card">
         <div className="hidden grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_120px_160px] gap-3 border-b bg-secondary/50 px-4 py-3 text-xs font-semibold uppercase text-muted-foreground md:grid">
           <span>Incident</span>
           <span>Original Bug</span>
@@ -63,9 +64,26 @@ export function ImpactDashboard() {
           <span>Status</span>
         </div>
         {isLoading ? (
-          <div className="px-4 py-8 text-sm text-muted-foreground">Loading impact links</div>
+          <div className="space-y-0">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="grid grid-cols-1 gap-3 border-b px-4 py-3 last:border-b-0 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_120px_160px]">
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-40" />
+                  <Skeleton className="h-3 w-56" />
+                </div>
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-32" />
+                  <Skeleton className="h-3 w-20" />
+                </div>
+                <Skeleton className="h-5 w-12" />
+                <Skeleton className="h-5 w-16" />
+              </div>
+            ))}
+          </div>
         ) : links.length === 0 ? (
-          <div className="px-4 py-8 text-sm text-muted-foreground">No production impact linked yet</div>
+          <div className="py-12 text-center text-sm text-muted-foreground">
+            No production impact linked yet. Impact linking watches for production incidents that match your reported bugs.
+          </div>
         ) : (
           links.map((link) => <ImpactRow key={link.id} link={link} />)
         )}
@@ -76,7 +94,7 @@ export function ImpactDashboard() {
 
 function ImpactMetric({ label, value }: { label: string; value: number }) {
   return (
-    <div className="min-w-24 rounded-md border bg-white px-3 py-2">
+    <div className="min-w-24 rounded-md border bg-card px-3 py-2">
       <div className="text-xs text-muted-foreground">{label}</div>
       <div className="mt-1 text-xl font-semibold">{value}</div>
     </div>
@@ -88,7 +106,7 @@ function ImpactRow({ link }: { link: ImpactLinkResponse }) {
     <div className="grid grid-cols-1 gap-3 border-b px-4 py-3 text-sm last:border-b-0 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_120px_160px]">
       <div className="min-w-0">
         <a
-          className="font-medium text-primary underline-offset-2 hover:underline"
+          className="font-medium text-accent underline-offset-2 hover:underline"
           href={link.incident_url}
           rel="noreferrer"
           target="_blank"
@@ -102,7 +120,7 @@ function ImpactRow({ link }: { link: ImpactLinkResponse }) {
         <div className="mt-1 flex flex-wrap gap-2">
           {link.jira_url ? (
             <a
-              className="inline-flex items-center gap-1 text-xs text-primary underline-offset-2 hover:underline"
+              className="inline-flex items-center gap-1 text-xs text-accent underline-offset-2 hover:underline"
               href={link.jira_url}
               rel="noreferrer"
               target="_blank"
@@ -113,7 +131,7 @@ function ImpactRow({ link }: { link: ImpactLinkResponse }) {
           ) : null}
           {link.replay_url ? (
             <a
-              className="inline-flex items-center gap-1 text-xs text-primary underline-offset-2 hover:underline"
+              className="inline-flex items-center gap-1 text-xs text-accent underline-offset-2 hover:underline"
               href={link.replay_url}
               rel="noreferrer"
               target="_blank"

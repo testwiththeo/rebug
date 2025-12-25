@@ -23,6 +23,11 @@ export async function getSession(sessionId: string): Promise<SessionResponse> {
   return fetchJson<SessionResponse>(`${getApiBaseUrl()}/sessions/${sessionId}`);
 }
 
+export async function listSessions(limit = 20): Promise<SessionResponse[]> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  return fetchJson<SessionResponse[]>(`${getApiBaseUrl()}/sessions?${params}`);
+}
+
 export async function getSessionEvents(
   sessionId: string,
   limit = 2_000,
