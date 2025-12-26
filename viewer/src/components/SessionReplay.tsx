@@ -122,16 +122,18 @@ export function SessionReplay({ payload }: { payload: ReplayPayload }) {
                     <span className="w-20 text-sm tabular-nums text-muted-foreground">
                       {formatDuration(currentMs)}
                     </span>
-                    <div className="flex rounded-md border bg-white p-1">
+                    <div className="flex rounded-md border bg-card p-1" role="radiogroup" aria-label="Playback speed">
                       {SPEEDS.map((speedOption) => (
                         <button
+                          aria-checked={speed === speedOption}
                           className={
                             speed === speedOption
                               ? 'rounded bg-primary px-2 py-1 text-xs font-medium text-primary-foreground'
-                              : 'rounded px-2 py-1 text-xs font-medium text-muted-foreground'
+                              : 'rounded px-2 py-1 text-xs font-medium text-muted-foreground hover:bg-secondary'
                           }
                           key={speedOption}
                           onClick={() => setSpeed(speedOption)}
+                          role="radio"
                           type="button"
                         >
                           {speedOption}x
