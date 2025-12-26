@@ -13,12 +13,20 @@ interface TimelineProps {
 }
 
 const MARKER_COLORS: Record<string, string> = {
-  console_log: '#dc2626',
-  network_request: '#2563eb',
-  user_interaction: '#16a34a',
-  bug_marker: '#d97706',
-  dom_mutation: '#64748b',
+  console_log: 'hsl(0 84% 60%)',
+  network_request: 'hsl(221 83% 53%)',
+  user_interaction: 'hsl(142 71% 45%)',
+  bug_marker: 'hsl(38 92% 50%)',
+  dom_mutation: 'hsl(220 9% 46%)',
 };
+
+const LEGEND_ITEMS = [
+  { type: 'console_log', label: 'Console', color: MARKER_COLORS.console_log },
+  { type: 'network_request', label: 'Network', color: MARKER_COLORS.network_request },
+  { type: 'user_interaction', label: 'Interaction', color: MARKER_COLORS.user_interaction },
+  { type: 'bug_marker', label: 'Bug', color: MARKER_COLORS.bug_marker },
+  { type: 'dom_mutation', label: 'DOM', color: MARKER_COLORS.dom_mutation },
+];
 
 export function Timeline({ events, currentMs, durationMs, onSeek }: TimelineProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -66,7 +74,7 @@ export function Timeline({ events, currentMs, durationMs, onSeek }: TimelineProp
 
     context.scale(ratio, ratio);
     context.clearRect(0, 0, width, height);
-    context.fillStyle = '#ffffff';
+    context.fillStyle = 'hsl(0 0% 100%)';
     context.fillRect(0, 0, width, height);
 
     drawLane(context, width, 18, 'console_log', 'Console');
@@ -84,8 +92,8 @@ export function Timeline({ events, currentMs, durationMs, onSeek }: TimelineProp
     }
 
     const currentX = positionFor(currentMs, durationMs, width);
-    context.strokeStyle = '#111827';
-    context.lineWidth = 1;
+    context.strokeStyle = 'hsl(0 84% 60%)';
+    context.lineWidth = 2;
     context.beginPath();
     context.moveTo(currentX, 6);
     context.lineTo(currentX, height - 6);
@@ -98,13 +106,42 @@ export function Timeline({ events, currentMs, durationMs, onSeek }: TimelineProp
     onSeek(Math.round(Math.max(0, Math.min(1, ratio)) * durationMs));
   }
 
+  function handleKeyDown(event: React.KeyboardEvent<HTMLCanvasElement>) {
+    const step = durationMs * 0.05;
+    if (event.key === 'ArrowLeft') {
+      onSeek(Math.max(0, currentMs - step));
+    } else if (event.key === 'ArrowRight') {
+      onSeek(Math.min(durationMs, currentMs + step));
+    }
+  }
+
   return (
-    <div ref={containerRef} className="overflow-hidden rounded-lg border bg-white">
-      <canvas
-        ref={canvasRef}
-        className="block cursor-pointer"
-        onPointerDown={handlePointerDown}
-      />
+    <div className="space-y-2">
+      <div ref={containerRef} className="overflow-hidden rounded-lg border bg-card">
+        <canvas
+          ref={canvasRef}
+          className="block cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          onPointerDown={handlePointerDown}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+          role="slider"
+          aria-label="Timeline scrubber"
+          aria-valuemin={0}
+          aria-valuemax={durationMs}
+          aria-valuenow={currentMs}
+        />
+      </div>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+        {LEGEND_ITEMS.map((item) => (
+          <div key={item.type} className="flex items-center gap-1.5">
+            <span
+              className="inline-block h-2 w-2 rounded-full"
+              style={{ backgroundColor: item.color }}
+            />
+            {item.label}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -116,14 +153,14 @@ function drawLane(
   type: string,
   label: string,
 ) {
-  context.strokeStyle = '#e2e8f0';
+  context.strokeStyle = 'hsl(220 13% 85%)';
   context.lineWidth = 1;
   context.beginPath();
   context.moveTo(76, y);
   context.lineTo(width - 10, y);
   context.stroke();
 
-  context.fillStyle = MARKER_COLORS[type] ?? '#64748b';
+  context.fillStyle = MARKER_COLORS[type] ?? 'hsl(220 9% 46%)';
   context.font = '11px Inter, sans-serif';
   context.fillText(label, 10, y + 4);
 }
@@ -144,9 +181,9 @@ function laneFor(event: SessionEvent): number {
 function colorFor(event: SessionEvent): string {
   if (event.event_type === 'console_log') {
     const level = event.data.level;
-    return level === 'error' ? '#dc2626' : '#f59e0b';
+    return level === 'error' ? 'hsl(0 84% 60%)' : 'hsl(38 92% 50%)';
   }
-  return MARKER_COLORS[event.event_type] ?? '#64748b';
+  return MARKER_COLORS[event.event_type] ?? 'hsl(220 9% 46%)';
 }
 
 function positionFor(timestampMs: number, durationMs: number, width: number): number {

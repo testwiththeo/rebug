@@ -75,13 +75,13 @@ export function Player({ events, currentMs, isPlaying, speed }: PlayerProps) {
   }, [currentMs, isPlaying, speed]);
 
   if (rrwebEvents.length > 0) {
-    return <div ref={playerTargetRef} className="min-h-[460px] overflow-hidden rounded-lg bg-white" />;
+    return <div ref={playerTargetRef} className="min-h-[460px] overflow-hidden rounded-lg bg-card" />;
   }
 
   const currentEvent = findCurrentReplayEvent(events, currentMs);
 
   return (
-    <div className="flex min-h-[460px] flex-col overflow-hidden rounded-lg border bg-white">
+    <div className="flex min-h-[460px] flex-col overflow-hidden rounded-lg border bg-card">
       <div className="border-b px-4 py-3">
         <div className="text-sm font-semibold">DOM Event Stream</div>
         <div className="mt-1 text-xs text-muted-foreground">
@@ -103,7 +103,7 @@ export function Player({ events, currentMs, isPlaying, speed }: PlayerProps) {
                   {currentEvent.category ?? `Event ${currentEvent.sequence}`}
                 </div>
               </div>
-              <pre className="max-h-[330px] overflow-auto rounded-md bg-slate-950 p-3 text-xs leading-5 text-slate-100">
+              <pre className="max-h-[330px] overflow-auto rounded-md bg-secondary p-3 font-mono text-xs leading-5">
                 {JSON.stringify(currentEvent.data, null, 2)}
               </pre>
             </div>
@@ -128,7 +128,7 @@ function EventStack({ events, currentMs }: { events: SessionEvent[]; currentMs: 
         <div className="text-xs text-muted-foreground">Waiting for first event</div>
       ) : (
         visibleEvents.map((event) => (
-          <div key={event.id} className="rounded-md border bg-white p-2">
+          <div key={event.id} className="rounded-md border bg-card p-2">
             <div className="flex items-center justify-between gap-2 text-xs">
               <span className="truncate font-medium">{event.category ?? event.event_type}</span>
               <span className="text-muted-foreground">{formatTimestamp(event.timestamp_ms)}</span>

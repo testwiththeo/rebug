@@ -12,7 +12,7 @@ export function ConsolePanel({ events, currentMs }: ConsolePanelProps) {
   return (
     <div className="space-y-2">
       {consoleEvents.length === 0 ? (
-        <div className="text-sm text-muted-foreground">No console events.</div>
+        <div className="py-8 text-center text-sm text-muted-foreground">No console events.</div>
       ) : (
         consoleEvents.map((event) => {
           const level = String(event.data.level ?? 'log');
@@ -21,16 +21,16 @@ export function ConsolePanel({ events, currentMs }: ConsolePanelProps) {
             <div
               className={
                 isActive
-                  ? 'rounded-md border bg-white p-3'
-                  : 'rounded-md border bg-white/60 p-3 opacity-55'
+                  ? 'rounded-md border bg-card p-3'
+                  : 'rounded-md border bg-card/60 p-3 opacity-55'
               }
               key={event.id}
             >
               <div className="mb-2 flex items-center justify-between gap-3">
-                <Badge variant={level === 'error' ? 'destructive' : 'outline'}>{level}</Badge>
+                <Badge variant={level === 'error' ? 'destructive' : level === 'warn' ? 'warning' : 'outline'}>{level}</Badge>
                 <span className="text-xs text-muted-foreground">{formatTimestamp(event.timestamp_ms)}</span>
               </div>
-              <div className="break-words text-sm">{String(event.data.message ?? '')}</div>
+              <pre className="whitespace-pre-wrap break-words font-mono text-xs leading-5">{String(event.data.message ?? '')}</pre>
             </div>
           );
         })

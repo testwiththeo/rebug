@@ -12,7 +12,7 @@ export function NetworkPanel({ events, currentMs }: NetworkPanelProps) {
   return (
     <div className="space-y-2">
       {networkEvents.length === 0 ? (
-        <div className="text-sm text-muted-foreground">No network events.</div>
+        <div className="py-8 text-center text-sm text-muted-foreground">No network events.</div>
       ) : (
         networkEvents.map((event) => {
           const status = Number(event.data.status ?? 0);
@@ -22,8 +22,8 @@ export function NetworkPanel({ events, currentMs }: NetworkPanelProps) {
             <div
               className={
                 isActive
-                  ? 'rounded-md border bg-white p-3'
-                  : 'rounded-md border bg-white/60 p-3 opacity-55'
+                  ? 'rounded-md border bg-card p-3'
+                  : 'rounded-md border bg-card/60 p-3 opacity-55'
               }
               key={event.id}
             >
