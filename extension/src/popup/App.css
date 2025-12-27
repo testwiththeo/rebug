@@ -43,6 +43,19 @@
 .status-dot.is-recording {
   background: #dc2626;
   box-shadow: 0 0 0 4px #fee2e2;
+  animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
 }
 
 .view-tabs {
@@ -65,9 +78,9 @@
 }
 
 .tab-button.is-active {
-  border-color: #2563eb;
-  color: #1d4ed8;
-  background: #eff6ff;
+  border-color: #dc2626;
+  color: #991b1b;
+  background: #fef2f2;
 }
 
 .metrics-grid {
@@ -128,11 +141,11 @@
 }
 
 .button.primary {
-  background: #15803d;
+  background: #dc2626;
 }
 
 .button.danger {
-  background: #dc2626;
+  background: #991b1b;
 }
 
 .button.secondary {
@@ -209,8 +222,8 @@
 }
 
 .session-row.is-selected {
-  border-color: #2563eb;
-  box-shadow: inset 3px 0 0 #2563eb;
+  border-color: #dc2626;
+  box-shadow: inset 3px 0 0 #dc2626;
 }
 
 .session-row strong,
