@@ -122,7 +122,7 @@ async def get_redis_client():
     return redis.from_url(settings.redis_url, decode_responses=True)
 
 
-def create_rate_limit_middleware(app, redis_client=None):
+async def create_rate_limit_middleware(app, redis_client=None):
     """Create and configure rate limit middleware."""
     settings = get_settings()
 
