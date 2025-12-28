@@ -43,6 +43,22 @@ from app.tasks.analysis import run_session_analysis
 router = APIRouter(prefix="/sessions", tags=["sessions"])
 
 
+@router.get("", response_model=list[SessionResponse])
+async def list_sessions(
+    db: AsyncSession = Depends(get_db),
+    limit: int = Query(default=20, ge=1, le=100),
+    offset: int = Query(default=0, ge=0),
+) -> list[SessionResponse]:
+    result = await db.execute(
+        select(Session)
+        .order_by(Session.created_at.desc())
+        .offset(offset)
+        .limit(limit)
+    )
+    sessions = result.scalars().all()
+    return [to_session_response(session) for session in sessions]
+
+
 @router.post(
     "",
     response_model=SessionIngestResponse,
